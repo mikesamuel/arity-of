@@ -1,6 +1,6 @@
 {
   "name": "arity-of",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Exposes max arity and other metadata for JS functions",
   "main": "index.js",
   "files": [
