@@ -1,6 +1,6 @@
 # arity-of
 
-[![Build Status](https://travis-ci.org/mikesamuel/arity-of.svg?branch=master)](https://travis-ci.com/mikesamuel/arity-of)
+[![Build Status](https://travis-ci.com/mikesamuel/arity-of.svg?branch=master)](https://travis-ci.com/mikesamuel/arity-of)
 [![Dependencies Status](https://david-dm.org/mikesamuel/arity-of/status.svg)](https://david-dm.org/mikesamuel/arity-of)
 [![npm](https://img.shields.io/npm/v/arity-of.svg)](https://www.npmjs.com/package/arity-of)
 [![Coverage Status](https://coveralls.io/repos/github/mikesamuel/arity-of/badge.svg?branch=master)](https://coveralls.io/github/mikesamuel/arity-of?branch=master)
