@@ -3,7 +3,8 @@
 // Per https://github.com/es-shims/es-shim-api :
 // In every way possible, the package must attempt to make itself
 // robust against the environment being modified after it is required.
-const { prototype } = Function;
+const FunctionBuiltin = {}.constructor.constructor;
+const { prototype } = FunctionBuiltin;
 const { toString } = prototype;
 const { apply } = Reflect;
 const { defineProperty, freeze, hasOwnProperty } = Object;
@@ -110,8 +111,7 @@ arityOf.implementation = arityOf;
 // of the native function, will be returned. This is also the result
 // that will be used as the default export.
 arityOf.getPolyfill = function getPolyfill() {
-  // TODO: look for native
-  return arityOf;
+  return FunctionBuiltin.arityOf || arityOf;
 };
 
 // require('foo').shim or require('foo/shim') is a function that when
@@ -121,26 +121,38 @@ arityOf.getPolyfill = function getPolyfill() {
 // The only place the package may modify the environment is within its
 // shim method.
 arityOf.shim = function shim() {
-  if (!hasOwnProperty(prototype, 'maxArity')) {
+  const polyfill = arityOf.getPolyfill();
+  if (!apply(hasOwnProperty, FunctionBuiltin, [ 'arityOf' ])) {
+    defineProperty(
+      FunctionBuiltin,
+      'arityOf',
+      {
+        configurable: true,
+        writable: true,
+        value: polyfill,
+      });
+  }
+  if (!apply(hasOwnProperty, prototype, [ 'maxArity' ])) {
     defineProperty(
       prototype,
       'maxArity',
       {
         configurable: true,
         get() {
-          return arityOf(this).max;
+          return polyfill(this).max;
         },
       });
   }
-  if (!hasOwnProperty(prototype, 'usesRest')) {
+  if (!apply(hasOwnProperty, prototype, [ 'usesRest' ])) {
     defineProperty(
       prototype,
       'usesRest',
       {
         configurable: true,
         get() {
-          return arityOf(this).usesRest;
+          return polyfill(this).usesRest;
         },
       });
   }
+  // TODO: do we need to install on AsyncFunction, GeneratorFunction, etc.
 };
