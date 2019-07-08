@@ -33,6 +33,12 @@ function arityOf(fun) {
   // without implementing pushback.
   let onNext = null; // Special action for next token.
 
+  function maybeCountParam(next) {
+    if (next !== ')') {
+      ++declaredParameterCount;
+    }
+  }
+
   tokenLoop:
   for (const tok of tokenize(str)) {
     if (onNext) {
@@ -44,11 +50,7 @@ function arityOf(fun) {
       case '(':
         if (!bracketDepth) {
           inFormalParameterList = true;
-          onNext = function countFirstParam(next) { // eslint-disable-line
-            if (next !== ')') {
-              declaredParameterCount = 1;
-            }
-          };
+          onNext = maybeCountParam;
         }
         // fallthrough
       case '{':
@@ -59,7 +61,7 @@ function arityOf(fun) {
         break;
       case ',':
         if (inFormalParameterList && bracketDepth === 1) {
-          ++declaredParameterCount;
+          onNext = maybeCountParam;
         }
         break;
       case '...':

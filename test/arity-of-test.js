@@ -29,5 +29,6 @@ describe('arity-of', () => {
     { max: 6, usesRest: true });
   test((pattern = /2,b=3/i) => {}, { max: 1 });
   test((i = 1/2,b=3/i) => {}, { max: 2 });
+  test(function danglingComma(a,) {}, { max: 1 });
   /* eslint-enable */
 });
