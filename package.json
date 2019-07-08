@@ -1,0 +1,80 @@
+{
+  "name": "arity-of",
+  "version": "1.0.0",
+  "description": "Exposes max arity and other metadata for JS functions",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "auto.js",
+    "lib/**.js"
+  ],
+  "scripts": {
+    "cover": "istanbul cover _mocha",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "lint": "./node_modules/.bin/eslint .",
+    "prepack": "npm run lint && npm test",
+    "test": "mocha"
+  },
+  "pre-commit": [
+    "prepack"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikesamuel/arity-of.git"
+  },
+  "keywords": [
+    "function",
+    "metadata",
+    "arity"
+  ],
+  "author": "Mike Samuel",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mikesamuel/arity-of/issues"
+  },
+  "homepage": "https://github.com/mikesamuel/arity-of#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.1",
+    "eslint": "^4.19.1",
+    "eslint-config-strict": "^14.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "pre-commit": "^1.2.2"
+  },
+  "eslintIgnore": [
+    "/coverage/**"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "strict"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "source",
+      "ecmaFeatures": {
+        "impliedStrict": false
+      }
+    },
+    "rules": {
+      "array-element-newline": "off",
+      "line-comment-position": "off",
+      "no-inline-comments": "off",
+      "no-warning-comments": [
+        "error",
+        {
+          "terms": [
+            "do not submit"
+          ]
+        }
+      ],
+      "no-void": "off",
+      "strict": [
+        "error",
+        "global"
+      ]
+    }
+  }
+}
