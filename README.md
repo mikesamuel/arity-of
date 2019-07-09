@@ -39,7 +39,7 @@ function myFunction(a, b = 0, [c, d], ...e) {
 myFunction.length;   // Minimum arity
 
 const {
-  max,               // Maximum arity (including any ...restParamater)
+  max,               // Maximum arity (including any ...restParameter)
   usesRest,          // True if there is a ...restParameter.
 } = arityOf(myFunction);
 ```
